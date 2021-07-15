@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Distributed;
 
 namespace Webapi1.Controllers
 {
@@ -11,14 +12,34 @@ namespace Webapi1.Controllers
     [ApiController]
     public class TestController : ControllerBase
     {
+        private readonly IDistributedCache cache;
+        public TestController(IDistributedCache cache)
+        {
+            this.cache = cache;
+        }
 
         [HttpGet]
-        public string Get()
+        [Route("Test2")]
+        public  string Test2()
         {
-            var name = HttpContext.Session.GetString("name").ToString();
-            var age = HttpContext.Session.GetInt32("age");
+             cache.SetString("name","vishnu");
 
-            return name + "   " + age;
+            //var name = HttpContext.Session.GetString("name").ToString();
+            //var age = HttpContext.Session.GetInt32("age");
+
+            return null;
+        }
+
+        [HttpGet]
+        [Route("Get2")]
+        public string Get2()
+        {
+            var x=cache.GetString("name");
+
+           
+            return x;
+
+
         }
     }
 }

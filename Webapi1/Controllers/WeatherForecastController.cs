@@ -29,8 +29,8 @@ namespace Webapi1.Controllers
         {
 
 
-            HttpContext.Session.SetString("name", "The Doctor");
-            HttpContext.Session.SetInt32("age", 773);
+            //HttpContext.Session.SetString("name", "The Doctor");
+            //HttpContext.Session.SetInt32("age", 773);
             var rng = new Random();
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
